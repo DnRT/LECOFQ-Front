@@ -31,12 +31,6 @@ const Noticia = (props) =>{
                     <Text style = {styles.heading}>Autor: <Text style = {styles.author}> {props.author}</Text></Text>
                     <Text style = {styles.date}> {moment(props.publishedAt).format("MMM Do YYYY ")}</Text>
                 </View>
-
-                {/*Fuente REVISAR ARQUITECTURA TABLA NOTICIAS*/}
-                <View style = {{marginTop: 10}}>
-                    <Text>Fuente: <Text style = {styles.source}> {props.sourceName} </Text> </Text>
-                </View>
-                
             </View>
 
 

@@ -3,7 +3,7 @@ import React, {useState, useEffect} from "react";
 import { StyleSheet, Text, SafeAreaView, FlatList } from "react-native";
 import MiniaturaNoticia from "../componentes/MiniaturaNoticia";
 
-const url= 'http://192.168.1.103:4444/api/noticias';
+const url= 'http://192.168.31.12:4444/api/noticias';
 
 
 const Inicio = () =>{

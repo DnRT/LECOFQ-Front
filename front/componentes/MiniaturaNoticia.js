@@ -2,10 +2,12 @@ import moment from "moment/moment";
 import React from "react";
 import { View, StyleSheet, Text, Image, Pressable} from "react-native";
 import * as WebBrowser from 'expo-web-browser'
+import { useNavigation } from "@react-navigation/native";
 
 
 const MiniaturaNoticia = (props) =>{
 
+    const navigation = useNavigation();
     const goToSource = () => {
         WebBrowser.openBrowserAsync(props.url)
     }
@@ -18,7 +20,7 @@ const MiniaturaNoticia = (props) =>{
         //    tabBarIcon: () => <FontAwesome name = "search" size = {24} color="black"/>
         //  }}/>
 
-        <Pressable style = {styles.container} onPress = {goToSource}>
+        <Pressable style = {styles.container} onPress = {() => navigation.navigate("Noticia")}>
             <Image source={{
                 uri: props.urlToImage
             }} 
@@ -41,12 +43,6 @@ const MiniaturaNoticia = (props) =>{
                     <Text style = {styles.heading}>por: <Text style = {styles.author}> {props.author}</Text></Text>
                     <Text style = {styles.date}> {moment(props.publishedAt).format("MMM Do YYYY ")}</Text>
                 </View>
-
-                {/*Fuente REVISAR ARQUITECTURA TABLA NOTICIAS*/}
-                <View style = {{marginTop: 10}}>
-                    <Text>fuente: <Text style = {styles.source}> {props.sourceName} </Text> </Text>
-                </View>
-                
             </View>
         </Pressable>
     )
