@@ -1,12 +1,11 @@
 import React from "react";
 import { Button, StyleSheet, Text, Image, Pressable, FlatList, ScrollView} from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import * as WebBrowser from 'expo-web-browser'
 import axios from "axios";
 
-const url = 'http://192.168.1.103:4444/api/clima';
+const url = 'http://192.168.31.12:4444/api/clima';
 
-const CalidadAire = (props) =>{
+const CalidadAire = () =>{
 
     const goToSource = () => {
         axios.get(url).then(response => {
@@ -69,13 +68,6 @@ const CalidadAire = (props) =>{
                 accessibilityLabel="Learn more about this purple button"
             />
         </ScrollView>
-        
-        
-        
-        
-        
-        
-        
     )
 }
 

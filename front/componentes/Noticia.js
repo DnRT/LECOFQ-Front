@@ -1,16 +1,41 @@
-import moment from "moment/moment";
 import React from "react";
-import { View, StyleSheet, Text, Image, Pressable} from "react-native";
-import * as WebBrowser from 'expo-web-browser'
-import { useNavigation } from "@react-navigation/native";
+import { View, StyleSheet, Text, Image, ScrollView} from "react-native";
 
 const Noticia = (props) =>{
-    const navigation = useNavigation();
+    const uri = props.route.params.imagen;
+    console.log(uri);
 
+    if (uri == undefined){
+        return(
+            <ScrollView style = {styles.container} >
+            <Image source={require('./sinFoto.png')}
+                style = {styles.image}
+            />
+
+            <View style = {{padding: 10}}>
+
+                {/*Titulo*/}
+                <Text style =  {styles.title}>
+                    {props.route.params.titulo} 
+                </Text>
+
+                {/*Descripcion*/}
+                <Text style = {styles.description}>
+                    {props.route.params.descripcion}
+                </Text>
+
+                <View style = {styles.data}>
+                    <Text style = {styles.heading}>Autor: <Text style = {styles.author}> {props.route.params.autor}</Text></Text>
+                </View>
+            </View>
+
+        </ScrollView>
+        )
+    }
     return(
-        <Pressable onPress = {() => navigation.navigate("SearchScreen")} style = {styles.container} >
+        <ScrollView style = {styles.container} >
             <Image source={{
-                uri: props.urlToImage
+                uri: props.route.params.imagen
             }} 
             style = {styles.image}
             />
@@ -19,23 +44,20 @@ const Noticia = (props) =>{
 
                 {/*Titulo*/}
                 <Text style =  {styles.title}>
-                    {props.Title} 
+                    {props.route.params.titulo} 
                 </Text>
 
                 {/*Descripcion*/}
                 <Text style = {styles.description}>
-                    {props.description}
+                    {props.route.params.descripcion}
                 </Text>
 
                 <View style = {styles.data}>
-                    <Text style = {styles.heading}>Autor: <Text style = {styles.author}> {props.author}</Text></Text>
-                    <Text style = {styles.date}> {moment(props.publishedAt).format("MMM Do YYYY ")}</Text>
+                    <Text style = {styles.heading}>Autor: <Text style = {styles.author}> {props.route.params.autor}</Text></Text>
                 </View>
             </View>
 
-
-
-        </Pressable>
+        </ScrollView>
     )
 }
 
@@ -49,7 +71,9 @@ const styles = StyleSheet.create({
         shadowColor: "#52006A",
         elevation: 20,
         backgroundColor: "#fff",
-        marginTop: 50
+        marginTop: 50,
+        marginBottom: 50,
+        flex: 1,
     },
     image: {
         height: 200,
@@ -71,9 +95,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         marginTop: 10
-    },
-    heading:{
-
     },
     author:{
         fontWeight:"bold",

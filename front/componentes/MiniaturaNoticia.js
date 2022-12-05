@@ -1,51 +1,68 @@
 import moment from "moment/moment";
-import React from "react";
 import { View, StyleSheet, Text, Image, Pressable} from "react-native";
-import * as WebBrowser from 'expo-web-browser'
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation} from "@react-navigation/native";
 
 
 const MiniaturaNoticia = (props) =>{
 
     const navigation = useNavigation();
-    const goToSource = () => {
-        WebBrowser.openBrowserAsync(props.url)
+    const imagen = props.urlToImage;
+    
+    if (imagen == undefined){
+        return(
+            <Pressable style = {styles.container} onPress = {() => {navigation.navigate("Noticia",{autor: props.author, titulo: props.title, descripcion: props.description, imagen:props.urlToImage})}}>
+                
+                <Image source={require('./sinFoto.png')}
+                style = {styles.image}
+                />
+    
+                <View style = {{padding: 10}}>
+    
+                    {/*Titulo*/}
+                    <Text style =  {styles.title}>
+                        {props.title} 
+                    </Text>
+    
+                    {/*Descripcion*/}
+                    <Text style = {styles.description} numberOfLines={3}>
+                        {props.description}
+                    </Text>
+    
+                    <View style = {styles.data}>
+                        <Text style = {styles.heading}>por: <Text style = {styles.author}> {props.author}</Text></Text>
+                        <Text style = {styles.date}> {moment(props.publishedAt).format("MMM Do YYYY ")}</Text>
+                    </View>
+                </View>
+            </Pressable>
+        )
     }
-
     return(
-        //<Tab.Screen name = "Noticias" component={Inicio} options={{
-        //    tabBarIcon: () => <Entypo name = "home" size = {24} color = "black"/>  
-        //  }}/>
-        //  <Tab.Screen name = "Buscar" component={SearchScreen} options ={{
-        //    tabBarIcon: () => <FontAwesome name = "search" size = {24} color="black"/>
-        //  }}/>
-
-        <Pressable style = {styles.container} onPress = {() => navigation.navigate("Noticia")}>
-            <Image source={{
-                uri: props.urlToImage
-            }} 
+        <Pressable style = {styles.container} onPress = {() => {navigation.navigate("Noticia",{autor: props.author, titulo: props.title, descripcion: props.description, imagen:props.urlToImage})}}> 
+            <Image source={
+                {uri:props.urlToImage}
+            }
             style = {styles.image}
             />
-
+    
             <View style = {{padding: 10}}>
-
-                {/*Titulo*/}
+             {/*Titulo*/}
                 <Text style =  {styles.title}>
-                    {props.Title} 
+                    {props.title} 
                 </Text>
-
+    
                 {/*Descripcion*/}
-                <Text style = {styles.description}>
+                <Text style = {styles.description} numberOfLines={3}>
                     {props.description}
                 </Text>
-
-                <View style = {styles.data}>
-                    <Text style = {styles.heading}>por: <Text style = {styles.author}> {props.author}</Text></Text>
-                    <Text style = {styles.date}> {moment(props.publishedAt).format("MMM Do YYYY ")}</Text>
+    
+                    <View style = {styles.data}>
+                        <Text style = {styles.heading}>por: <Text style = {styles.author}> {props.author}</Text></Text>
+                        <Text style = {styles.date}> {moment(props.publishedAt).format("MMM Do YYYY ")}</Text>
+                    </View>
                 </View>
-            </View>
-        </Pressable>
+            </Pressable>
     )
+
 }
 
 export default MiniaturaNoticia;
